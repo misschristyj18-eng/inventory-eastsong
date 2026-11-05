@@ -1,84 +1,24 @@
-# inventory-eastsong
+# Eatsong Brew: Sales & Inventory Tracker
 
-Inventory and sales tracker app.
+Mobile-first tracker built with vanilla HTML/CSS/JS, Express, and Prisma on Neon PostgreSQL.
 
-## Repository setup
+## Setup
+1. `npm install`
+2. Copy `.env.example` to `.env` and paste your Neon connection string into `DATABASE_URL`.
+3. `npm run db:push` (creates the tables)
+4. `npm run db:seed` (loads 14 drinks at 50 stock and Siomai/Siopao at 100 stock; re-running wipes all data)
+5. `npm start` and open http://localhost:3000
 
-This repository is currently stored as a ZIP archive and should be unpacked before deployment.
+## Pages
+- `/` Dashboard · `/sale.html` New Sale · `/inventory.html` Stock · `/reports.html` Reports + Excel export
 
-Recommended folder layout:
+## API
+- `GET /api/products`
+- `POST /api/sales` `{ items: [{productId, quantity}], payment }` (one transaction: validates stock, creates sale, deducts stock, logs)
+- `POST /api/stock` `{ productId, type: "stock_in" | "adjustment", quantity, notes }`
+- `GET /api/reports?from=ISO&to=ISO`
+- Also: `GET /api/dashboard`, `GET /api/inventory-log`
 
-```text
-inventory-eastsong/
-  README.md
-  .gitignore
-  .env.example
-  package.json
-  inventory.html
-  sale.html
-  reports.html
-  css/
-    style.css
-  js/
-    main.js
-    inventory.js
-    sale.js
-    reports.js
-  server/
-    server.js
-    prisma/
-      schema.prisma
-      seed.ts
-```
-
-## GitHub rules
-
-- Do not commit `.env` files.
-- Never commit secrets, database credentials, or service tokens.
-- Use `.env.example` as the template for required environment variables.
-- Keep frontend and backend code separated.
-- Keep deployment-specific config out of source control when possible.
-- Add clear instructions in the README.
-
-## Environment template
-
-Create a local `.env` from `.env.example` before running the app.
-
-```env
-DATABASE_URL="postgresql://user:password@host:5432/dbname?sslmode=require"
-PORT=3000
-NODE_ENV=development
-```
-
-## Neon setup
-
-1. Create a PostgreSQL database in Neon.
-2. Copy the connection string.
-3. Set the value in Vercel as `DATABASE_URL`.
-4. If Prisma is used, run:
-
-```bash
-npx prisma generate
-npx prisma db push
-```
-
-Or, if using migrations:
-
-```bash
-npx prisma migrate deploy
-```
-
-## Vercel setup
-
-1. Import the GitHub repository into Vercel.
-2. Add the environment variables:
-   - `DATABASE_URL`
-   - `PORT`
-   - `NODE_ENV`
-3. Deploy the app.
-
-## Notes
-
-The project archive (`eatsong-tracker.zip`) appears to contain a Node/Prisma app with static HTML files. Before deployment, the archive should be extracted locally and the source files should be committed to the repository rather than left in a ZIP archive.
-
-This repository is now prepared with the standard GitHub hygiene files for safe deployment to Neon and Vercel.
+## Deploying
+Any Node host works (Render, Railway, Fly). Set `DATABASE_URL`, build command `npm install`, start command `npm start`.
+Note: there is no login. Add authentication before exposing this publicly.

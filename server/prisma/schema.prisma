@@ -1,0 +1,53 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Product {
+  id                String         @id @default(cuid())
+  name              String
+  category          String         @default("Drink") // Drink, Food
+  size              String? // e.g., "12oz", "16oz", or null
+  unit              String         @default("cup") // cup, piece
+  sellingPrice      Decimal        @db.Decimal(10, 2)
+  currentStock      Int            @default(0)
+  lowStockThreshold Int            @default(10)
+  isActive          Boolean        @default(true)
+  createdAt         DateTime       @default(now())
+  saleItems         SaleItem[]
+  inventoryLogs     InventoryLog[]
+}
+
+model Sale {
+  id          String     @id @default(cuid())
+  createdAt   DateTime   @default(now())
+  totalAmount Decimal    @db.Decimal(10, 2)
+  payment     Decimal?   @db.Decimal(10, 2)
+  change      Decimal?   @db.Decimal(10, 2)
+  items       SaleItem[]
+}
+
+model SaleItem {
+  id        String  @id @default(cuid())
+  saleId    String
+  productId String
+  quantity  Int
+  unitPrice Decimal @db.Decimal(10, 2)
+  lineTotal Decimal @db.Decimal(10, 2)
+  sale      Sale    @relation(fields: [saleId], references: [id], onDelete: Cascade)
+  product   Product @relation(fields: [productId], references: [id])
+}
+
+model InventoryLog {
+  id        String   @id @default(cuid())
+  productId String
+  type      String // "stock_in" | "sale" | "adjustment"
+  quantity  Int // positive = in, negative = out
+  notes     String?
+  createdAt DateTime @default(now())
+  product   Product  @relation(fields: [productId], references: [id])
+}

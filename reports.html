@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Reports · Eatsong Brew</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800&family=Playfair+Display:ital,wght@0,700;1,500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+</head>
+<body>
+  <main>
+    <h1>Sales reports</h1>
+    <div class="no-print">
+      <div class="row">
+        <div><label for="from">From</label><input id="from" type="date"></div>
+        <div><label for="to">To</label><input id="to" type="date"></div>
+      </div>
+      <div class="row" style="margin-top:12px">
+        <button class="btn" id="runBtn" type="button">Show sales</button>
+        <button class="btn brown" id="exportBtn" type="button">Export to Excel</button>
+        <button class="btn ghost" id="printBtn" type="button">Print</button>
+      </div>
+      <p id="msg" class="msg error" role="alert"></p>
+    </div>
+    <p class="print-only" id="printTitle" style="font-weight:800;margin:8px 0"></p>
+    <div class="card" style="margin:14px 0"><div class="label">Total for period</div><div class="value" id="sum">₱0.00</div></div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Date</th><th>Items</th><th class="num">Total</th><th class="num">Paid</th><th class="num">Change</th></tr></thead>
+        <tbody id="rows"><tr><td colspan="5" class="empty">Loading…</td></tr></tbody>
+      </table>
+    </div>
+  </main>
+  <script src="js/main.js"></script>
+  <script src="js/reports.js"></script>
+</body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>New Sale · Eatsong Brew</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800&family=Playfair+Display:ital,wght@0,700;1,500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <main>
+    <h1>New sale</h1>
+    <div class="no-print">
+      <label for="product">Product</label>
+      <select id="product"></select>
+      <label for="qty">Quantity</label>
+      <div class="row">
+        <input id="qty" type="number" inputmode="numeric" min="1" value="1">
+        <button class="btn ghost" id="addBtn" type="button">Add to order</button>
+      </div>
+      <div class="totals" id="cartBox">
+        <div id="cart"><p class="empty">No items yet. Pick a product and add it.</p></div>
+        <div class="big"><span>Total</span><span id="total">₱0.00</span></div>
+      </div>
+      <label for="payment">Payment received (₱)</label>
+      <input id="payment" type="number" inputmode="decimal" min="0" step="0.01" placeholder="0.00">
+      <div class="totals"><div><span>Change</span><strong id="change">₱0.00</strong></div></div>
+      <p id="msg" class="msg error" role="alert"></p>
+      <button class="btn brown block" id="saveBtn" type="button" style="margin-top:12px">Save sale</button>
+    </div>
+
+    <div class="modal hidden" id="receiptModal" role="dialog" aria-modal="true" aria-label="Receipt">
+      <div class="modal-box">
+        <div class="receipt" id="receipt"></div>
+        <div class="row no-print" style="margin-top:16px">
+          <button class="btn ghost" id="newBtn" type="button">New sale</button>
+          <button class="btn brown" id="printBtn" type="button">Print receipt</button>
+        </div>
+      </div>
+    </div>
+  </main>
+  <script src="js/main.js"></script>
+  <script src="js/sale.js"></script>
+</body>
+</html>

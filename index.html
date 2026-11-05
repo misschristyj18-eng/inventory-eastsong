@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Dashboard · Eatsong Brew</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800&family=Playfair+Display:ital,wght@0,700;1,500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <main>
+    <h1>Today at the café</h1>
+    <div id="lowBanner" class="banner hidden" role="alert"></div>
+    <div class="grid">
+      <div class="card wide"><div class="label">Today's Sales</div><div class="value" id="sales">—</div></div>
+      <div class="card"><div class="label">Transactions Today</div><div class="value" id="tx">—</div></div>
+      <div class="card"><div class="label">Items Sold</div><div class="value" id="items">—</div></div>
+      <div class="card wide"><div class="label">Siomai Left Today</div><div class="value" id="siomai">—</div></div>
+    </div>
+    <p id="err" class="msg error"></p>
+  </main>
+  <a href="sale.html" class="btn brown fab">＋ New Sale</a>
+  <script src="js/main.js"></script>
+  <script src="js/dashboard.js"></script>
+</body>
+</html>

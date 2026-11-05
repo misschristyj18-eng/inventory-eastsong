@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Stock · Eatsong Brew</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800&family=Playfair+Display:ital,wght@0,700;1,500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <main>
+    <h1>Stock management</h1>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Name</th><th>Size</th><th class="num">Price</th><th class="num">Stock</th><th class="no-print"></th></tr></thead>
+        <tbody id="products"><tr><td colspan="5" class="empty">Loading…</td></tr></tbody>
+      </table>
+    </div>
+    <h2>Last 50 stock changes</h2>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>When</th><th>Item</th><th>Type</th><th class="num">Qty</th><th>Notes</th></tr></thead>
+        <tbody id="logs"></tbody>
+      </table>
+    </div>
+
+    <div class="modal hidden" id="stockModal" role="dialog" aria-modal="true" aria-labelledby="stockTitle">
+      <div class="modal-box">
+        <h2 id="stockTitle" style="margin-top:0"></h2>
+        <p id="stockHelp" style="font-size:.9rem"></p>
+        <label for="stockQty">Quantity</label>
+        <input id="stockQty" type="number" inputmode="numeric" step="1">
+        <label for="stockNotes">Notes (optional)</label>
+        <input id="stockNotes" type="text" maxlength="120">
+        <p id="stockMsg" class="msg error" role="alert"></p>
+        <div class="row" style="margin-top:12px">
+          <button class="btn ghost" id="stockCancel" type="button">Cancel</button>
+          <button class="btn brown" id="stockSave" type="button">Save</button>
+        </div>
+      </div>
+    </div>
+  </main>
+  <script src="js/main.js"></script>
+  <script src="js/inventory.js"></script>
+</body>
+</html>
