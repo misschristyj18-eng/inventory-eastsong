@@ -4,14 +4,17 @@ const express = require("express");
 const cors = require("cors");
 const { PrismaClient } = require("@prisma/client");
 
-const prisma = new PrismaClient();
+const globalForPrisma = globalThis;
+const prisma = globalForPrisma.prisma || new PrismaClient();
+if (process.env.NODE_ENV !== "production") globalForPrisma.prisma = prisma;
+
 const app = express();
 const ROOT = path.join(__dirname, "..");
 
 app.use(cors());
 app.use(express.json());
 
-// Serve only public frontend files (never .env or server code)
+// Serve only public frontend files locally (Vercel serves repository static assets itself).
 app.use("/css", express.static(path.join(ROOT, "css")));
 app.use("/js", express.static(path.join(ROOT, "js")));
 ["index", "sale", "inventory", "reports"].forEach((p) => {
@@ -143,4 +146,8 @@ app.get("/api/reports", wrap(async (req, res) => {
 }));
 
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => console.log(`Eatsong Brew tracker running at http://localhost:${PORT}`));
+if (!process.env.VERCEL) {
+  app.listen(PORT, () => console.log(`Eatsong Brew tracker running at http://localhost:${PORT}`));
+}
+
+module.exports = app;
